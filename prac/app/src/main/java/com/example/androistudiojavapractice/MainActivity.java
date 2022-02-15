@@ -1,23 +1,31 @@
 package com.example.androistudiojavapractice;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
+
 import android.widget.Toast;
 
 import com.example.androistudiojavapractice.databinding.ActivityMainBinding;
+import com.example.androistudiojavapractice.databinding.WebviewActivityBinding;
 
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
+
     String shared="file";
     int i=1;
     @Override
@@ -25,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.btnGosub.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast toast=Toast.makeText(MainActivity.this.getApplicationContext(),"hi",Toast.LENGTH_LONG);
+                toast.show();
+                Intent intent=new Intent(MainActivity.this,WebsiteActivity.class);
+                startActivity(intent);
+            }
+        });
         SharedPreferences sharedPreferences= getSharedPreferences(shared,0);
         int editNum=sharedPreferences.getInt("listcount",i);
         Toast toast=Toast.makeText(this.getApplicationContext(),""+editNum,Toast.LENGTH_LONG);
@@ -44,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         else if(editNum==1)
         adapter.notifyDataSetChanged();
 
-        binding.btnGosub.setOnClickListener(new View.OnClickListener() {
+        binding.btnAddlist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             i+=1;
